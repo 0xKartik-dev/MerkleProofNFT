@@ -14,3 +14,10 @@ const rootHash = merkleTree.getHexRoot();
 console.log("WHitelist Merkle Tree\n", merkleTree.toString());
 
 console.log("Root Hash: ", rootHash);
+
+//generate proofs for address
+const claimAddr = leafNodes[0];
+
+const getProof = merkleTree.getHexProof(claimAddr);
+
+console.log("get proof\n", getProof);
