@@ -1,8 +1,10 @@
-pragma solidity ^0.8.4;
-
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
-contract MerkleProofNFT is ERC721 {
+contract MerkleProofNFT is Ownable, ERC721Enumerable {
     bytes32 public mRootHash;
 
     mapping(address => bool) public trackerList;
@@ -17,12 +19,8 @@ contract MerkleProofNFT is ERC721 {
         bytes32 leaf = keccak256(abi.encode(msg.sender));
         require(!trackerList[msg.sender], "You have already claimed bro");
         require(
-            MerkleProof.verify(
-                _mProofBySender,
-                mRootHash,
-                leaf,
-                "Invalid Proof bro"
-            )
+            MerkleProof.verify(_mProofBySender, mRootHash, leaf),
+            "Invalid Proof bro"
         );
         trackerList[msg.sender] = true;
     }
