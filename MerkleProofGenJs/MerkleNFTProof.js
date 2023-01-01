@@ -10,7 +10,7 @@ const leafNodes = whitelistAdresses.map((addr) => keccak256(addr));
 const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
 
 const rootHash = merkleTree.getHexRoot();
-
+console.log("GM");
 console.log("WHitelist Merkle Tree\n", merkleTree.toString());
 
 console.log("Root Hash: ", rootHash);
